@@ -7,7 +7,14 @@
 *
 * Installed modules: 
 * express, node-uuid, socket.io, connect, cookie, passport, passport-local,
-* passport-socketio
+* passport-socketio, emailjs
+
+
+
+// Run this to install everything needed. 
+ npm install express && npm install node-uuid && npm install socket.io && npm install connect && npm install cookie && npm install passport && npm install passport-local && npm install passport-socketio && npm install emailjs
+
+
 *
 *Thanks for Rob Hawkes for his framework for multiplayer game.
 *Lot of stuff has been reworked ever since.
@@ -230,7 +237,7 @@ app.get('/check-nick', function(req, res) {
 //Check, if user is logged in and then forward 
 app.get('/game', ensureAuthenticated, function(req, res) {
 	//check if user is listed as logged in.
-	res.sendfile(__dirname + '/client/chat.html');
+	res.sendfile(__dirname + '/client/game.html');
 });
 
 

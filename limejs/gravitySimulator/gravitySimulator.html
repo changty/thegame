@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+	<title>gravitySimulator</title>
+	<script type="text/javascript" src="../closure/closure/goog/base.js"></script>
+	<script type="text/javascript" src="gravitySimulator.js"></script>
+</head>
+<style>
+	body {
+		margin: auto; 
+		text-align: center;
+		background: #222;
+	}
+
+	h1 {
+		margin-bottom: 0px; 
+		line-height: 100%; 
+		color: #fff;
+		font-family: Arial;
+		text-align: center;
+	}
+</style>
+<body>
+
+<div style="height: 100%; width: 100%;">
+
+	<div style="width:50%; float:left;  ">
+		<h1>Maa</h1>
+	</div>
+	<div style="width:50%; float:left;;">
+		<h1>Kuu</h1>
+	</div>
+
+	<div style="clear:both; display:block;"></div>
+
+	<div id="earth" style="margin-left:1%; width:48%; height:100%; float:left;">
+	</div>
+
+	<div id="moon" style="margin-left:1%; width:48%; height:100%; float:left;">
+	</div>
+</div>
+</body>
+<script>
+
+var body = document.body,
+    html = document.documentElement;
+
+var height = Math.max( body.scrollHeight, body.offsetHeight, 
+                       html.clientHeight, html.scrollHeight, html.offsetHeight );
+
+height=height-100;
+	console.log(height);
+	var width = document.getElementById("earth").width;
+
+document.getElementById("earth").style.height=height+"px";
+document.getElementById("moon").style.height=height+"px";
+
+
+	gravitySimulator.start("earth", 400, width, height);
+	gravitySimulator.start("moon", 400/6, width, height);
+</script>
+
+</html>

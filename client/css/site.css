@@ -1,0 +1,90 @@
+   body { 
+      background: url(../img/sand.jpg) no-repeat center center fixed; 
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+  }
+
+   body {
+        padding-top: 40px;
+        padding-bottom: 40px;
+
+        /*background: rgb(192,222,237) url(../img/bg.png) top left repeat-x;  */
+
+
+      }
+
+      #loginform, #signup-form {
+        margin-top: 0px;
+      }
+      .form-signup {
+        max-width: 500px !important;
+      }
+
+      .signup-form-actions {
+        background: none;
+      }
+      /*Sign-up form error and valid*/
+      label.valid {
+        width: 24px;
+        height: 24px;
+        background: url(../img/valid.png) center center no-repeat;
+        display: inline-block;
+        text-indent: -9999px;
+      }
+      label.error {
+        font-weight: bold;
+        color: red;
+        padding: 2px 8px;
+        margin-top: 2px;
+      }
+
+      .form-signin, .form-signup {
+        max-width: 350px;
+        padding: 19px 29px 29px;
+        margin: 0 auto 20px;
+        background-color: rgb(255, 255, 255);
+        background-color: rgba(255, 255, 255, 0.9);
+        border: 1px solid #999;
+        -webkit-border-radius: 5px;
+           -moz-border-radius: 5px;
+                border-radius: 5px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+                box-shadow: 0 1px 2px rgba(0,0,0,.05);
+      }
+      .form-signin .form-signin-heading,
+      .form-signin .checkbox {
+        margin-bottom: 10px;
+      }
+      .form-signin input[type="text"],
+      .form-signin input[type="password"] {
+        font-size: 16px;
+        height: auto;
+        margin-bottom: 15px;
+        padding: 7px 9px;
+      }
+      
+      #success-placeholder {
+        text-align:center;
+      }
+      #content {
+      	padding: 10px;
+      	background: #fff;
+      	border: 1px solid #aaa!important;
+        -webkit-border-radius: 5px;
+           -moz-border-radius: 5px;
+                border-radius: 5px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+                box-shadow: 0 1px 2px rgba(0,0,0,.05);
+      }
+
+      #forgot-password {
+      }
+
+      #create-account {
+      }
+
+

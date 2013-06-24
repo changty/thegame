@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Gameserver</title>
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   	 	<!-- Bootstrap -->
+   		<link href="client/css/bootstrap.min.css" rel="stylesheet" media="screen">
+   		<link href="client/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
+   		<link href="client/css/site.css" rel="stylesheet" media="screen">
+</head>
+
+<body>
+
+	<div class="container">
+		
+		<form id="loginform" class="form-signin" action="/login" method="post">
+			<h1 class="form-signin-heading">The Game</h1>
+			<p class="subheading">Login to start playing</p>
+			<input id="email" type="text" class="input-block-level" name="username" placeholder="Email addres">
+			<input id="password" type="password" class="input-block-level" name="password" placeholder="Password">
+
+			<button type="submit" id="login" class="btn btn-large btn-success btn-block"><i class="icon-lock icon-white"> </i> Sign in</button>
+			<div class="clear-fix"></div>
+			<hr />
+
+			<div class="row-fluid">
+				<div class="span6">
+					<a href="#resetPassword" data-toggle="modal" id="forgot-password">Forgot your password?</a>
+				</div>
+				<div class="span5">
+					<a href="/signup" id="create-account">Create an account</a>
+				</div>
+			</div>
+		</form>
+
+		
+
+
+
+	</div> <!--  container -->
+
+	<!-- Modal -->
+<div id="resetPassword" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="resetPasswordLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="resetPasswordLabel">Retrieve password</h3>
+  </div>
+  <div class="modal-body">
+  	<center>
+	  	<div class="well">	    
+	    <!-- Email -->			
+		  <div class="control-group">
+		    <label class="control-label" for="retreive_password">Enter an email address assosciated with your account to reset password</label>
+		    <div class="controls">
+	    		<input type="text" id="retreive_password" class="input-block-level"  name="email" placeholder="my@email.com">
+		    </div>
+		  </div><!-- control group -->
+
+		</div>
+	</center>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+    <button id="reset-btn" class="btn btn-primary">Reset password</button>
+  </div>
+</div>
+
+
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="client/js/jquery.validate.js"></script>
+<script src="client/js/bootstrap.min.js"></script>
+<script>
+
+$(document).ready(function () {
+
+
+
+
+			//Centers dialog
+			var height = $(window).height();
+			var login_height = $('#loginform').height()*2;
+
+			var margin = (height-login_height)/2; 
+
+			if(margin <= 20) {
+				margin = 20;
+			}  
+
+			$('#loginform').css({'margin-top': margin});
+
+
+			$('#reset-btn').click(function(e) {
+			//Validata retreive password
+				e.preventDefault();
+				
+				var email = $('#retreive_password').val(); 
+				//just a very stupid validation. jQuery validate had 
+				//a small bug that prevented it to validate singel input.
+				if((email.length > 0) && (email.indexOf('@') != -1)) {
+					$.ajax( {
+						url: '../forgot',
+						type: 'POST',
+						dataType: 'json',
+						data: {email: $('#retreive_password').val()}, 
+						success: function(data) {
+							console.log(data);
+							$('#resetPassword').modal('hide')
+
+						},
+
+						error: function(err) {
+							console.log("Error: " + err);
+						}
+
+					});
+				}
+			});
+
+});
+
+
+
+/*
+$('#login').click(function(e) {
+	e.preventDefault();
+	$.ajax( {
+		url: '../login',
+		type: 'POST',
+		dataType: 'json',
+		data: {email: $('#email').val(), password: $('#password').val()}, 
+		success: function(data) {
+			console.log(data);
+			window.location.href='/game';
+		},
+
+		error: function(err) {
+			console.log("Error: " + err);
+		}
+
+	});
+}); */
+</script>
+
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>New account</title>
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   	 	<!-- Bootstrap -->
+   		<link href="client/css/bootstrap.min.css" rel="stylesheet" media="screen">
+   		<link href="client/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
+
+   		<link href="client/css/site.css" rel="stylesheet" media="screen">
+	</head>
+
+	<body>
+
+		<div class="container">
+		
+		<form id="signup-form" class="form-horizontal form-signup">
+			<h1 class="form-signin-heading">Signup</h1>
+			<p class="subheading">Please, introduce your self</p>
+					
+			<!-- Name -->			
+		  <div class="control-group">
+		    <label class="control-label" for="name">Name</label>
+		    <div class="controls">
+		      <input type="text" name="name" id="name" placeholder="John Doe">
+		    </div>
+		  </div>
+
+			<!-- Email -->			
+		  <div class="control-group">
+		    <label class="control-label" for="email">Email</label>
+		    <div class="controls">
+		      <input type="text" name="email" id="email"  placeholder="my@email.com" required/>
+		    </div>
+		  </div>
+
+		  <div class="clear-fix"></div>
+		  <hr />
+
+		  <p class="subheading">Choose your nickname and password</p>
+
+		  <!-- Nick -->			
+		  <div class="control-group">
+		    <label class="control-label" for="nick">Nick</label>
+		    <div class="controls">
+		      <input type="text" name="nick" minlength="4" id="nick" placeholder="Player001" required/>
+		    </div>
+		  </div>
+
+
+		  <!-- Password -->			
+		  <div class="control-group">
+		    <label class="control-label" for="password">Password</label>
+		    <div class="controls">
+		      <input type="password" id="password" name="password" minlength="6" placeholder="Password" required/>
+		    </div>
+		  </div>
+
+		  <!-- Place holder for success message-->
+		 	<div id="success-placeholder">
+					
+			</div>
+
+		  <!-- Buttons --> 
+		  <div class="form-actions signup-form-actions">
+		  	<center>
+		  	<a 	href="/" id="signup-cancel" class="btn">Cancel</a>
+		  	<button type="submit" id="signup-submit" class="btn btn-primary">Submit</button>
+		  </center>
+		  </div><!-- form-actions -->
+
+		</form>
+
+
+	</div> <!--  container -->
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="client/js/bootstrap.min.js"></script>
+
+	<!-- added jqueryvalidate to validate fields automatically --> 
+	<script src="client/js/jquery.validate.min.js"></script>
+
+	<script>
+		$(document).ready(function(){
+
+			//Centers dialog
+			var height = $(window).height();
+			var login_height = $('#signup-form').height()*2;
+
+			var margin = (height-login_height)/2; 
+
+			if(margin <= 20) {
+				margin = 20;
+			}  
+
+			$('#signup-form').css({'margin-top': margin});
+
+
+			 $('#signup-form').validate(
+			 {
+			  rules: {
+			    name: {
+			      minlength: 2,
+			      required: true
+			    },
+			    email: {
+			      required: true,
+			      email: true,
+			      remote: '/check-email'
+			    },
+			    password: {
+			      minlength: 6,
+			      required: true
+			    },
+			    nick: {
+			      minlength: 4,
+			      required: true,
+			      remote: '/check-nick'
+			    }
+			  },
+			  highlight: function(element) {
+			    $(element).closest('.control-group').removeClass('success').addClass('error');
+			  },
+			  success: function(element) {
+			    element
+			    .text('OK!').addClass('valid')
+			    .closest('.control-group').removeClass('error').addClass('success');
+			  },
+
+			  submitHandler: function() {
+
+			  	var data = {name: $('#name').val(), email: $('#email').val(), nick: $('#nick').val(), password: $('#password').val() }
+			  	$.ajax({
+			  		url: '/register-data',
+			  	 	type: 'POST',
+					dataType: 'json',
+					data: data,
+					complete: function() {
+						 $('#signup-submit').attr("disabled", true);
+						console.log('submit sended');
+
+					},
+
+					success: function(data) {
+						$('#success-placeholder').addClass('alert');
+						$('#success-placeholder').addClass('alert-success');
+
+						$('#success-placeholder').html('<h2>Registeration success!</h2> <a class="subheader" href="/">Proceed to login</a>');
+					},
+
+					error: function(data) {
+						$('#success-placeholder').addClass('alert') 
+						$('#success-placeholder').addClass('alert-error');
+						$('#success-placeholder').html('<h1>Something went wrong :( Try again</h1>');		
+						$('#signup-submit').attr("disabled", false);	
+					}
+			  	});//ajax
+			  } // submitHandler
+			 });// signup-form.validate
+		});//document.ready
+
+ /*
+ When i got time, i'll revice 
+ messages to something better.
+
+ $(".selector").validate({
+  rules: {
+    name: "required",
+    email: {
+      required: true,
+      email: true
+    }
+  },
+  messages: {
+    name: "Please specify your name",
+    email: {
+      required: "We need your email address to contact you",
+      email: "Your email address must be in the format of name@domain.com"
+    }
+  }
+});
+*/
+	</script>
+
+	</body>
+
+</html>
